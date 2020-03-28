@@ -2,19 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from '@apollo/react-hooks';
+import { Router } from "react-router";
+import { createBrowserHistory } from "history";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const history = createBrowserHistory();
+
 const client = new ApolloClient({
+  credentials: 'include',
   uri: '/graphql',
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <Router history={history}>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </Router>,
   document.getElementById('root')
 );
 

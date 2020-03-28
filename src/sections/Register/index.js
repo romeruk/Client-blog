@@ -4,6 +4,7 @@ import { useForm, ErrorMessage } from 'react-hook-form';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { LoadingComponent } from '../../lib';
 
 const REGISTER = gql`
@@ -18,7 +19,7 @@ const REGISTER = gql`
   }
 `;
 
-export const Register = () => {
+export const Register = ({ user: currUser }) => {
   const [pageLoading, setPageLoading] = useState(true);
 
   const [user, setUser] = useState(null);
@@ -55,6 +56,7 @@ export const Register = () => {
 
   if (mutationLoading || pageLoading) return <LoadingComponent />
   if (mutationError) return <div>error</div>
+  if (currUser) return <Redirect to="/" />
 
   return (
     <>
@@ -136,5 +138,3 @@ export const Register = () => {
     </>
   )
 }
-
-export default Register;
