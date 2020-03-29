@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { LoadingComponent } from '../../lib';
+import { AuthContext } from '../../AuthContext/authContext';
 
 const LOGOUT = gql`
   mutation logOut {
@@ -11,7 +12,8 @@ const LOGOUT = gql`
   }
 `;
 
-export const AppHeader = ({ user, setUser }) => {
+export const AppHeader = () => {
+  const { user, setUser } = useContext(AuthContext);
   const [logOut, { loading }] = useMutation(LOGOUT, {
     onCompleted: () => {
       setUser(null);

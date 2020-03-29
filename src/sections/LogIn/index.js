@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Row, Col, Form, Alert, Button } from 'react-bootstrap';
 import { useForm, ErrorMessage } from 'react-hook-form';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Redirect } from 'react-router-dom';
 import { LoadingComponent } from '../../lib';
+import { AuthContext } from '../../AuthContext/authContext';
 
 
 const LOGIN = gql`
@@ -19,10 +20,10 @@ const LOGIN = gql`
   }
 `;
 
-export const LogIn = ({ user, setUser }) => {
-  const { register, handleSubmit, errors } = useForm()
-
-  const [login, { loading: mutationLoading, error }] = useMutation(LOGIN, {
+export const LogIn = () => {
+  const { user, setUser } = useContext(AuthContext);
+  const { register, handleSubmit, errors, setError } = useForm()
+  const [login, { loading: mutationLoading }] = useMutation(LOGIN, {
     onCompleted: (data) => {
       setUser(data.logIn)
     }
@@ -30,7 +31,6 @@ export const LogIn = ({ user, setUser }) => {
 
   const onSubmit = async formData => {
     try {
-
       await login({
         variables: {
           credentials: {
@@ -41,7 +41,8 @@ export const LogIn = ({ user, setUser }) => {
       })
 
     } catch (error) {
-      console.log(error);
+      if (error.graphQLErrors.length > 0)
+        setError(error.graphQLErrors[0].extensions.exception.response.message);
     }
   }
 
@@ -62,7 +63,7 @@ export const LogIn = ({ user, setUser }) => {
               }
             })} />
 
-            <ErrorMessage as={<Alert variant="danger" />} errors={errors} name="email" />
+            <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="email" />
           </Form.Group>
 
           <Form.Group>
@@ -74,7 +75,7 @@ export const LogIn = ({ user, setUser }) => {
               }
             })} />
 
-            <ErrorMessage as={<Alert variant="danger" />} errors={errors} name="password" />
+            <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="password" />
           </Form.Group>
 
           <Button variant="primary" type="submit">

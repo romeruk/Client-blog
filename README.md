@@ -1,9 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Next todo
-
-handle graphql errors
-
 ## Available Scripts
 
 ### `yarn start`

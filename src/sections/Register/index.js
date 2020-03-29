@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Form, Button, Row, Col, Alert } from 'react-bootstrap';
 import { useForm, ErrorMessage } from 'react-hook-form';
 import gql from 'graphql-tag';
@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { LoadingComponent } from '../../lib';
+import { AuthContext } from '../../AuthContext/authContext';
 
 const REGISTER = gql`
   mutation register($credentials: CreateUserInput!) {
@@ -19,16 +20,17 @@ const REGISTER = gql`
   }
 `;
 
-export const Register = ({ user: currUser }) => {
+export const Register = () => {
+  const { user: currUser } = useContext(AuthContext);
   const [pageLoading, setPageLoading] = useState(true);
 
   const [user, setUser] = useState(null);
-  const [registerMe, { loading: mutationLoading, error: mutationError }] = useMutation(REGISTER, {
+  const [registerMe, { loading: mutationLoading }] = useMutation(REGISTER, {
     onCompleted: (data) => {
       setUser(data.register);
     }
   });
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, errors, setError } = useForm()
 
   useEffect(() => {
     setPageLoading(false);
@@ -49,13 +51,12 @@ export const Register = ({ user: currUser }) => {
       })
 
     } catch (error) {
-      console.log(error);
-      console.log(error.graphQLErrors);
+      if (error.graphQLErrors.length > 0)
+        setError(error.graphQLErrors[0].extensions.exception.response.message);
     }
   }
 
   if (mutationLoading || pageLoading) return <LoadingComponent />
-  if (mutationError) return <div>error</div>
   if (currUser) return <Redirect to="/" />
 
   return (
@@ -89,7 +90,7 @@ export const Register = ({ user: currUser }) => {
                   }
                 })} />
 
-              <ErrorMessage as={<Alert variant="danger" />} errors={errors} name="firstName" />
+              <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="firstName" />
 
             </Form.Group>
 
@@ -102,7 +103,7 @@ export const Register = ({ user: currUser }) => {
                 }
               })} />
 
-              <ErrorMessage as={<Alert variant="danger" />} errors={errors} name="lastName" />
+              <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="lastName" />
             </Form.Group>
 
             <Form.Group>
@@ -114,7 +115,7 @@ export const Register = ({ user: currUser }) => {
                 }
               })} />
 
-              <ErrorMessage as={<Alert variant="danger" />} errors={errors} name="email" />
+              <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="email" />
             </Form.Group>
 
             <Form.Group>
@@ -126,7 +127,7 @@ export const Register = ({ user: currUser }) => {
                 }
               })} />
 
-              <ErrorMessage as={<Alert variant="danger" />} errors={errors} name="password" />
+              <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="password" />
             </Form.Group>
 
             <Button variant="primary" type="submit">

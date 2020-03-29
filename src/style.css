@@ -5,6 +5,10 @@ body {
   font-size: 1rem;
 }
 
+.pre-wrap {
+  white-space: pre-wrap
+}
+
 #overlay {
   position: fixed;
   display: flex;
@@ -17,7 +21,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(94, 255, 247, 0.062);
   z-index: 2;
   cursor: pointer;
 }
