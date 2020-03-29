@@ -1,25 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient from "apollo-boost";
 import { ApolloProvider } from '@apollo/react-hooks';
 import { Router } from "react-router";
 import { createBrowserHistory } from "history";
+import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 import './style.css';
 import App from './App';
+import { client } from "./apollo/apolloClient";
 import * as serviceWorker from './serviceWorker';
-
+import { AuthProvider } from './AuthContext/authContext';
 const history = createBrowserHistory();
 
-const client = new ApolloClient({
-  credentials: 'include',
-  uri: '/graphql',
+
+toast.configure({
+  position: "bottom-right"
 });
 
 ReactDOM.render(
   <Router history={history}>
     <ApolloProvider client={client}>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ApolloProvider>
   </Router>,
   document.getElementById('root')
