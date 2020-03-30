@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -28,15 +28,22 @@ export const AppHeader = () => {
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar className="p-3 px-md-4 mb-3 bg-white border-bottom" bg="light" expand="lg">
         <Container>
 
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
+              {user && (user.role === "ADMIN" || user.role === "SUPERADMIN") && (
+
+                <NavDropdown title="Admin actions" id="basic-nav-dropdown">
+                  <Link className="dropdown-item" to="createuser">Create User</Link>
+                  <Link className="dropdown-item" to="listusers">List Users</Link>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Nav>
             {user ? (
               <Nav>
@@ -45,8 +52,9 @@ export const AppHeader = () => {
               </Nav>
             ) :
               <Nav>
-                <Link to="/signin" className="btn btn-primary mr-lg-3">Log In</Link>
-                <Link to="/signup" className="btn btn-primary">Register</Link>
+
+                <Link to="/signin" className="btn btn-outline-primary mr-lg-3">Log In</Link>
+                <Link to="/signup" className="btn btn-outline-primary">Register</Link>
               </Nav>
             }
 

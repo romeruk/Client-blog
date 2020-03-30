@@ -5,8 +5,8 @@ import {
   Route,
 } from "react-router-dom";
 import { Container } from 'react-bootstrap';
-import { AppHeader, Home, Register, LogIn, NotFound } from './sections';
-import { PrivateRoute } from './lib';
+import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin } from './sections';
+import { AdminRoute } from './lib';
 
 function App() {
   return (
@@ -24,9 +24,9 @@ function App() {
             <Route exact path="/signin">
               <LogIn />
             </Route>
-            <PrivateRoute path="/protected">
-            //private route
-            </PrivateRoute>
+            <AdminRoute exact path="/createuser">
+              <CreateUserByAdmin />
+            </AdminRoute>
             <Route path="*">
               <NotFound />
             </Route>
