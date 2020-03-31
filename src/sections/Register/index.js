@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Form, Button, Row, Col, Alert } from 'react-bootstrap';
 import { useForm, ErrorMessage } from 'react-hook-form';
 import gql from 'graphql-tag';
@@ -22,19 +22,14 @@ const REGISTER = gql`
 
 export const Register = () => {
   const { user: currUser } = useContext(AuthContext);
-  const [pageLoading, setPageLoading] = useState(true);
-
   const [user, setUser] = useState(null);
-  const [registerMe, { loading: mutationLoading }] = useMutation(REGISTER, {
+  const [registerMe, { loading }] = useMutation(REGISTER, {
     onCompleted: (data) => {
       setUser(data.register);
     }
   });
   const { register, handleSubmit, errors, setError } = useForm()
 
-  useEffect(() => {
-    setPageLoading(false);
-  }, [])
 
   const onSubmit = async formData => {
     try {
@@ -56,7 +51,7 @@ export const Register = () => {
     }
   }
 
-  if (mutationLoading || pageLoading) return <LoadingComponent />
+  if (loading) return <LoadingComponent />
   if (currUser) return <Redirect to="/" />
 
   return (

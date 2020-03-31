@@ -38,8 +38,9 @@ export const AppHeader = () => {
               {user && (user.role === "ADMIN" || user.role === "SUPERADMIN") && (
 
                 <NavDropdown title="Admin actions" id="basic-nav-dropdown">
-                  <Link className="dropdown-item" to="createuser">Create User</Link>
-                  <Link className="dropdown-item" to="listusers">List Users</Link>
+                  <Link className="dropdown-item" to="/createuser">Create User</Link>
+                  <Link className="dropdown-item" to="/listusers">Users</Link>
+                  <Link className="dropdown-item" to="/categories">Categories</Link>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                 </NavDropdown>

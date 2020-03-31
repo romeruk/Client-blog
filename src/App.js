@@ -5,8 +5,9 @@ import {
   Route,
 } from "react-router-dom";
 import { Container } from 'react-bootstrap';
-import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin, UsersList } from './sections';
+import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin, UsersList, Categories } from './sections';
 import { AdminRoute } from './lib';
+import { EditCategory } from './sections/Admin/EditCategory';
 
 function App() {
   return (
@@ -29,6 +30,12 @@ function App() {
             </AdminRoute>
             <AdminRoute exact path="/listusers">
               <UsersList />
+            </AdminRoute>
+            <AdminRoute exact path="/categories">
+              <Categories />
+            </AdminRoute>
+            <AdminRoute exact path="/categories/:slug/edit">
+              <EditCategory />
             </AdminRoute>
             <Route path="*">
               <NotFound />
