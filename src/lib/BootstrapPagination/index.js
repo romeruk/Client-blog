@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Pagination } from 'react-bootstrap';
 
-export const BootstrapPagination = ({ total, limit, maxPagestoShow, defaultActivePage = 1 }) => {
-  const [active, setActive] = useState(defaultActivePage);
+export const BootstrapPagination = ({ total, limit, maxPagestoShow, onChange, defaultActivePage = 1 }) => {
+
+  let active = defaultActivePage;
 
   const countPages = Math.ceil(total / limit);
   let firstPage = active - Math.ceil(maxPagestoShow / 2);
@@ -23,7 +24,8 @@ export const BootstrapPagination = ({ total, limit, maxPagestoShow, defaultActiv
   }
 
   const onClick = (page) => {
-    setActive(page)
+    active = page;
+    onChange(page);
   }
 
   const renserItems = () => {
@@ -40,9 +42,13 @@ export const BootstrapPagination = ({ total, limit, maxPagestoShow, defaultActiv
 
   return (
     <Pagination>
-      {/* {firstPage !== 1 && (<Pagination.Prev onClick={setActive(curr => curr - 1)} />)} */}
+      {firstPage !== 1 && (
+        <Pagination.Prev onClick={() => onChange(active - 1)} />
+      )}
       {renserItems()}
-      {/* {lastPage < countPages && (<Pagination.Next onClick={setActive(curr => curr + 1)} />)} */}
+      {lastPage < countPages && (
+        <Pagination.Next onClick={() => onChange(active + 1)} />
+      )}
     </Pagination>
   )
 }
