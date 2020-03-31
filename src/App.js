@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import { Container } from 'react-bootstrap';
-import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin } from './sections';
+import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin, UsersList } from './sections';
 import { AdminRoute } from './lib';
 
 function App() {
@@ -26,6 +26,9 @@ function App() {
             </Route>
             <AdminRoute exact path="/createuser">
               <CreateUserByAdmin />
+            </AdminRoute>
+            <AdminRoute exact path="/listusers">
+              <UsersList />
             </AdminRoute>
             <Route path="*">
               <NotFound />

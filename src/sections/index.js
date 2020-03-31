@@ -3,4 +3,5 @@ export * from "./Home";
 export * from './Register';
 export * from './LogIn';
 export * from './NotFound';
-export * from './CreateUserByAdmin';
+export * from './Admin/CreateUserByAdmin';
+export * from './Admin/UsersList';

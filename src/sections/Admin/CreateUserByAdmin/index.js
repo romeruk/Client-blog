@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Row, Col, Alert, Form, Button } from "react-bootstrap";
 import { useForm, ErrorMessage } from 'react-hook-form';
-import { LoadingComponent } from '../../lib';
+import { LoadingComponent } from '../../../lib';
 
 const CREATEUSER = gql`
   mutation createUserByAdmin($role: String!, $credentials: CreateUserInput!) {
