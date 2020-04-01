@@ -54,37 +54,40 @@ export const LogIn = () => {
     <section>
       <Container>
 
-        <Row>
-          <Col md={12}>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-              <Form.Group>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control className="mb-2" type="email" placeholder="Enter email" name="email" ref={register({
-                  required: "Field email is required", pattern: {
-                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: "Field must be email"
-                  }
-                })} />
+        <Row className="justify-content-lg-center">
+          <Col lg={6} sm={12}>
+            <div className="well">
+              <h2>Log in</h2>
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form.Group>
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control className="mb-2" type="email" placeholder="Enter email" name="email" ref={register({
+                    required: "Field email is required", pattern: {
+                      value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: "Field must be email"
+                    }
+                  })} />
 
-                <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="email" />
-              </Form.Group>
+                  <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="email" />
+                </Form.Group>
 
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control className="mb-2" type="password" placeholder="Password" name="password" ref={register({
-                  required: "Field password is required", minLength: {
-                    value: 6,
-                    message: "Min length is 6"
-                  }
-                })} />
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control className="mb-2" type="password" placeholder="Password" name="password" ref={register({
+                    required: "Field password is required", minLength: {
+                      value: 6,
+                      message: "Min length is 6"
+                    }
+                  })} />
 
-                <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="password" />
-              </Form.Group>
+                  <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="password" />
+                </Form.Group>
 
-              <Button variant="primary" type="submit">
-                Log In
-          </Button>
-            </Form>
+                <Button variant="primary" type="submit">
+                  Log In
+                </Button>
+              </Form>
+            </div>
           </Col>
         </Row>
       </Container>

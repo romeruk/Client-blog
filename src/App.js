@@ -4,8 +4,8 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin, UsersList, Categories, CreateCategory, Footer } from './sections';
-import { AdminRoute } from './lib';
+import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin, UsersList, Categories, CreateCategory, Footer, EditMe } from './sections';
+import { AdminRoute, PrivateRoute } from './lib';
 import { EditCategory } from './sections/Admin/EditCategory';
 
 function App() {
@@ -24,6 +24,9 @@ function App() {
             <Route exact path="/signin">
               <LogIn />
             </Route>
+            <PrivateRoute exact path="/user/edit">
+              <EditMe />
+            </PrivateRoute>
             <AdminRoute exact path="/users">
               <UsersList />
             </AdminRoute>

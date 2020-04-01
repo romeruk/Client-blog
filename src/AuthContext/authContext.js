@@ -21,26 +21,30 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [pageLoading, setPageLoading] = useState(true);
-  const { loading } = useQuery(GETME, {
+  const [appLoading, setAppLoading] = useState(true);
+  const { loading, refetch } = useQuery(GETME, {
     onCompleted: (data) => {
+      console.log(data);
       if (data && data.getMe) {
         setUser(data.getMe);
       }
-      setPageLoading(false);
+      setAppLoading(false);
     },
     onError: () => {
       setUser(null);
-      setPageLoading(false);
-    }
+      setAppLoading(false);
+    },
+    fetchPolicy: "cache-and-network"
   });
 
   const defaultContext = {
     user,
-    setUser
+    setUser,
+    setAppLoading,
+    refetch
   };
 
-  if (loading || pageLoading) return <LoadingComponent />
+  if (loading || appLoading) return <LoadingComponent />
 
   // const [state, dispatch] = useReducer(reducer, initialState);
 

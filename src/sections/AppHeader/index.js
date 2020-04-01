@@ -47,7 +47,12 @@ export const AppHeader = () => {
             </Nav>
             {user ? (
               <>
-                <Nav as="ul" className="mr-lg-4 mb-4 mb-lg-0">
+                <Nav as="ul" className="mr-lg-4 mb-4 mb-lg-0 d-lg-flex align-items-lg-center">
+                  <li>
+                    <NavDropdown title="User actions" id="basic-nav-dropdown">
+                      <Link className="dropdown-item" to="/user/edit">Edit me</Link>
+                    </NavDropdown>
+                  </li>
                   <li>Hi {user.firstName} {user.lastName}</li>
                 </Nav>
                 <Button variant="danger" onClick={logOutAction}>Log Out</Button>
