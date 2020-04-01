@@ -4,8 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { Container } from 'react-bootstrap';
-import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin, UsersList, Categories } from './sections';
+import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin, UsersList, Categories, CreateCategory, Footer } from './sections';
 import { AdminRoute } from './lib';
 import { EditCategory } from './sections/Admin/EditCategory';
 
@@ -13,8 +12,8 @@ function App() {
   return (
     <>
       <Router>
-        <AppHeader />
-        <Container>
+        <div id="page-content">
+          <AppHeader />
           <Switch>
             <Route exact path="/">
               <Home />
@@ -25,14 +24,17 @@ function App() {
             <Route exact path="/signin">
               <LogIn />
             </Route>
-            <AdminRoute exact path="/createuser">
-              <CreateUserByAdmin />
-            </AdminRoute>
-            <AdminRoute exact path="/listusers">
+            <AdminRoute exact path="/users">
               <UsersList />
+            </AdminRoute>
+            <AdminRoute exact path="/users/create">
+              <CreateUserByAdmin />
             </AdminRoute>
             <AdminRoute exact path="/categories">
               <Categories />
+            </AdminRoute>
+            <AdminRoute exact path="/categories/create">
+              <CreateCategory />
             </AdminRoute>
             <AdminRoute exact path="/categories/:slug/edit">
               <EditCategory />
@@ -41,7 +43,8 @@ function App() {
               <NotFound />
             </Route>
           </Switch>
-        </Container>
+        </div>
+        <Footer />
       </Router>
     </>
   );

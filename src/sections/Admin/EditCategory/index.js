@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useParams, useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { Row, Col, Form, Alert, Button, ButtonGroup } from 'react-bootstrap';
+import { Row, Col, Form, Alert, Button, ButtonGroup, Container } from 'react-bootstrap';
 import { useForm, ErrorMessage } from 'react-hook-form';
 import { toast } from "react-toastify";
 
@@ -22,11 +22,6 @@ export const EditCategory = () => {
   const [recoverCategory] = useMutation(RECOVERCATEGORY);
 
   const { register, handleSubmit, errors, setError } = useForm();
-
-  useEffect(() => {
-    console.log("render");
-  }, [])
-
 
   if (loading) return <LoadingComponent />
   if (error) return `Error! ${error.message}`;
@@ -87,38 +82,41 @@ export const EditCategory = () => {
   }
 
   return (
-    <>
-      <Row>
-        <Col md={12}>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group>
-              <Form.Label>Category Title</Form.Label>
-              <Form.Control
-                className="mb-2"
-                type="text"
-                placeholder="Enter category title"
-                name="title"
-                defaultValue={category.title}
-                ref={register({
-                  required: "Field first name is required", maxLength: {
-                    value: 20,
-                    message: "Max length is 20"
-                  }
-                })} />
+    <section>
+      <Container>
 
-              <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="title" />
+        <Row>
+          <Col md={12}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form.Group>
+                <Form.Label>Category Title</Form.Label>
+                <Form.Control
+                  className="mb-2"
+                  type="text"
+                  placeholder="Enter category title"
+                  name="title"
+                  defaultValue={category.title}
+                  ref={register({
+                    required: "Field first name is required", maxLength: {
+                      value: 20,
+                      message: "Max length is 20"
+                    }
+                  })} />
 
-            </Form.Group>
+                <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="title" />
+
+              </Form.Group>
 
 
-            <ButtonGroup aria-label="Basic example">
-              <Button variant="primary" type="submit">Edit</Button>
-              <Button disabled={category.deletedAt === null} onClick={() => removeOrUpdate(category.title, false)} variant="success">Recover</Button>
-              <Button disabled={category.deletedAt !== null} onClick={() => removeOrUpdate(category.title, true)} variant="danger">Remove</Button>
-            </ButtonGroup>
-          </Form>
-        </Col>
-      </Row>
-    </>
+              <ButtonGroup aria-label="Basic example">
+                <Button variant="primary" type="submit">Edit</Button>
+                <Button disabled={category.deletedAt === null} onClick={() => removeOrUpdate(category.title, false)} variant="success">Recover</Button>
+                <Button disabled={category.deletedAt !== null} onClick={() => removeOrUpdate(category.title, true)} variant="danger">Remove</Button>
+              </ButtonGroup>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </section>
   )
 }

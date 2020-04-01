@@ -31,15 +31,14 @@ export const AppHeader = () => {
       <Navbar className="p-3 px-md-4 mb-3 bg-white border-bottom" bg="light" expand="lg">
         <Container>
 
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="/">Blog</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               {user && (user.role === "ADMIN" || user.role === "SUPERADMIN") && (
 
                 <NavDropdown title="Admin actions" id="basic-nav-dropdown">
-                  <Link className="dropdown-item" to="/createuser">Create User</Link>
-                  <Link className="dropdown-item" to="/listusers">Users</Link>
+                  <Link className="dropdown-item" to="/users">Users</Link>
                   <Link className="dropdown-item" to="/categories">Categories</Link>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
@@ -47,10 +46,12 @@ export const AppHeader = () => {
               )}
             </Nav>
             {user ? (
-              <Nav>
-                <p>Hi {user.firstName} {user.lastName}</p>
-                <Button onClick={logOutAction}>Log Out</Button>
-              </Nav>
+              <>
+                <Nav as="ul" className="mr-lg-4 mb-4 mb-lg-0">
+                  <li>Hi {user.firstName} {user.lastName}</li>
+                </Nav>
+                <Button variant="danger" onClick={logOutAction}>Log Out</Button>
+              </>
             ) :
               <Nav>
 

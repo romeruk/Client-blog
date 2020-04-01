@@ -1,9 +1,13 @@
 import React from 'react'
+import { Container } from "react-bootstrap";
 
 export const Home = () => {
   return (
-    <div>
-      Home Page
-    </div>
+    <section>
+      <Container>
+
+        Home Page
+      </Container>
+    </section>
   )
 }

@@ -3,6 +3,8 @@ export * from "./Home";
 export * from './Register';
 export * from './LogIn';
 export * from './NotFound';
+export * from './Footer/'
 export * from './Admin/CreateUserByAdmin';
 export * from './Admin/UsersList';
 export * from './Admin/Categories';
+export * from './Admin/CreateCategory';

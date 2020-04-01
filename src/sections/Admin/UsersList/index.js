@@ -1,7 +1,7 @@
 import React from 'react'
-import { Table, Row, Col } from 'react-bootstrap';
+import { Table, Row, Col, Card, Container } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { LoadingComponent, BootstrapPagination } from '../../../lib';
 import { useUrlQuery } from '../../../hooks/';
@@ -89,29 +89,42 @@ export const UsersList = () => {
 
 
   return (
-    <>
-      <Row>
-        <Col md={12}>
+    <section>
+      <Container>
 
-          <Table responsive>
-            <thead>
-              <tr>
-                {renderTableHeading()}
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {renderTableData()}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12}>
-          <BootstrapPagination total={total} limit={PAGE_LIMIT} onChange={((page) => pageChange(page))} maxPagestoShow={5} defaultActivePage={page} />
-        </Col>
-      </Row>
+        <Row>
+          <Col md={12}>
+            <Card className="mb-4">
+              <Card.Header>Users</Card.Header>
+              <Card.Body>
+                <Link className="btn btn-primary" to="/users/create">Create new user</Link>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <Table responsive>
+              <thead>
+                <tr>
+                  {renderTableHeading()}
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {renderTableData()}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <BootstrapPagination total={total} limit={PAGE_LIMIT} onChange={((page) => pageChange(page))} maxPagestoShow={5} defaultActivePage={page} />
+          </Col>
+        </Row>
 
-    </>
+      </Container>
+    </section>
+
   )
 }
