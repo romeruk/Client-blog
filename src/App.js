@@ -17,7 +17,8 @@ import {
   Footer,
   EditMe,
   ForgottenPassword,
-  ResetPasswordByToken
+  ResetPasswordByToken,
+  VerifyUser
 } from './sections';
 import { AdminRoute, PrivateRoute } from './lib';
 import { EditCategory } from './sections/Admin/EditCategory';
@@ -43,6 +44,9 @@ function App() {
             </Route>
             <Route exact path="/resetpassword/:token">
               <ResetPasswordByToken />
+            </Route>
+            <Route exact path="/verify/:token">
+              <VerifyUser />
             </Route>
             <PrivateRoute exact path="/user/edit">
               <EditMe />
