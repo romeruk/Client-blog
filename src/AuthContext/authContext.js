@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }) => {
   const [appLoading, setAppLoading] = useState(true);
   const { loading, refetch } = useQuery(GETME, {
     onCompleted: (data) => {
-      console.log(data);
       if (data && data.getMe) {
         setUser(data.getMe);
       }

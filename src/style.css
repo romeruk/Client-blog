@@ -33,6 +33,11 @@ body {
   box-shadow: none;
 }
 
+.well a {
+  display: inline-block;
+  margin-top: 20px;
+}
+
 #overlay {
   position: fixed;
   display: flex;

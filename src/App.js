@@ -4,7 +4,21 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { AppHeader, Home, Register, LogIn, NotFound, CreateUserByAdmin, UsersList, Categories, CreateCategory, Footer, EditMe } from './sections';
+import {
+  AppHeader,
+  Home,
+  Register,
+  LogIn,
+  NotFound,
+  CreateUserByAdmin,
+  UsersList,
+  Categories,
+  CreateCategory,
+  Footer,
+  EditMe,
+  ForgottenPassword,
+  ResetPasswordByToken
+} from './sections';
 import { AdminRoute, PrivateRoute } from './lib';
 import { EditCategory } from './sections/Admin/EditCategory';
 
@@ -23,6 +37,12 @@ function App() {
             </Route>
             <Route exact path="/signin">
               <LogIn />
+            </Route>
+            <Route exact path="/forgottenpassword">
+              <ForgottenPassword />
+            </Route>
+            <Route exact path="/resetpassword/:token">
+              <ResetPasswordByToken />
             </Route>
             <PrivateRoute exact path="/user/edit">
               <EditMe />

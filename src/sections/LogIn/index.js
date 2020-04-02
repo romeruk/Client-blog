@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Row, Col, Form, Alert, Button, Container } from 'react-bootstrap';
 import { useForm, ErrorMessage } from 'react-hook-form';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { LoadingComponent } from '../../lib';
 import { AuthContext } from '../../AuthContext/authContext';
 
@@ -22,6 +22,7 @@ const LOGIN = gql`
 
 export const LogIn = () => {
   const { user, setUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const { register, handleSubmit, errors, setError } = useForm()
   const [login, { loading: mutationLoading }] = useMutation(LOGIN, {
     onCompleted: (data) => {
@@ -46,7 +47,10 @@ export const LogIn = () => {
     }
   }
 
-  if (mutationLoading) return <LoadingComponent />
+
+  useEffect(() => setLoading(false), []);
+
+  if (loading || mutationLoading) return <LoadingComponent />
   if (user) return <Redirect to="/" />
 
 
@@ -81,8 +85,8 @@ export const LogIn = () => {
                   })} />
 
                   <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="password" />
+                  <Link to="/forgottenpassword">Forgotten Password</Link>
                 </Form.Group>
-
                 <Button variant="primary" type="submit">
                   Log In
                 </Button>

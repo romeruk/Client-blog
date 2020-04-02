@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { LoadingComponent } from '../../lib';
 import { AuthContext } from '../../AuthContext/authContext';
+import { useEffect } from 'react';
 
 const REGISTER = gql`
   mutation register($credentials: CreateUserInput!) {
@@ -21,19 +22,14 @@ const REGISTER = gql`
 `;
 
 export const Register = () => {
-  const { user: currUser } = useContext(AuthContext);
-  const [user, setUser] = useState(null);
-  const [registerMe, { loading }] = useMutation(REGISTER, {
-    onCompleted: (data) => {
-      setUser(data.register);
-    }
-  });
+  const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+  const [registerMe, { data, loading: mutationLoading }] = useMutation(REGISTER);
   const { register, handleSubmit, errors, setError } = useForm()
 
 
   const onSubmit = async formData => {
     try {
-
       await registerMe({
         variables: {
           credentials: {
@@ -51,19 +47,20 @@ export const Register = () => {
     }
   }
 
-  if (loading) return <LoadingComponent />
-  if (currUser) return <Redirect to="/" />
+  useEffect(() => setLoading(false), []);
+
+  if (loading || mutationLoading) return <LoadingComponent />
+  if (user) return <Redirect to="/" />
 
   return (
     <section>
       <Container>
-
         {
-          user && (
+          data && (
             <Row className="justify-content-lg-center">
               <Col lg={6} sm={12}>
                 <Alert variant="success">
-                  User {user.firstName} {user.lastName} has been successfully registered <br />
+                  User {data.register.firstName} {data.register.lastName} has been successfully registered <br />
                 Verify your account with token that was sended in your email address
               </Alert>
               </Col>
