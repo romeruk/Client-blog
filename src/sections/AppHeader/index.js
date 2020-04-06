@@ -40,8 +40,6 @@ export const AppHeader = () => {
                 <NavDropdown title="Admin actions" id="basic-nav-dropdown">
                   <Link className="dropdown-item" to="/users">Users</Link>
                   <Link className="dropdown-item" to="/categories">Categories</Link>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                 </NavDropdown>
               )}
             </Nav>
@@ -51,6 +49,7 @@ export const AppHeader = () => {
                   <li>
                     <NavDropdown title="User actions" id="basic-nav-dropdown">
                       <Link className="dropdown-item" to="/user/edit">Edit me</Link>
+                      <Link className="dropdown-item" to="/user/post/create">Create Post</Link>
                     </NavDropdown>
                   </li>
                   <li>Hi {user.firstName} {user.lastName}</li>

@@ -8,6 +8,7 @@ export * from './EditMe';
 export * from './ForgottenPassword';
 export * from './ResetPasswordByToken';
 export * from './VerifyUser';
+export * from './CreatePost/';
 export * from './Admin/CreateUserByAdmin';
 export * from './Admin/UsersList';
 export * from './Admin/Categories';
