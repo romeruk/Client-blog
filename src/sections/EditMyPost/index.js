@@ -1,46 +1,59 @@
-import React, { useState } from "react";
+import React from 'react'
 import { Container, Row, Col, Form, Alert, Button } from 'react-bootstrap'
-import { useForm, ErrorMessage, Controller } from 'react-hook-form';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useParams } from "react-router-dom";
 import gql from "graphql-tag";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useForm, ErrorMessage, Controller } from "react-hook-form";
 import BraftEditor from 'braft-editor'
-import { LoadingComponent } from "../../lib";
 
-const GETALLCATEGORIES = gql`
-  query getAllCategories {
-    getAllCategories {
+import { LoadingComponent } from '../../lib';
+
+const GETPOST = gql`
+  query findOneBySlug($slug: String!) {
+    findOneBySlug(slug: $slug) {
+      title,
+      content,
+      categories {
+        title
+      },
+      allCategories {
+        title
+      }
+    }
+  }
+`
+
+const EDITPOST = gql`
+  mutation editPost($input: EditPostInput!){
+    editPost(input: $input) {
       title
     }
   }
 `
 
-const CREATEPOST = gql`
-  mutation createPost($input: CreatePostInput!) {
-    createPost(input: $input) {
-      title
-    }
-  }
-
-`
-
-
-export const CreatePost = () => {
-  const [value, setValue] = useState(BraftEditor.createEditorState('<p>Hello <b>World!</b></p>'));
+export const EditMyPost = () => {
+  let { slug } = useParams();
   const { register, handleSubmit, errors, setError, control } = useForm();
-  const { loading, error, data } = useQuery(GETALLCATEGORIES, {
+  const [editPost, { loading: mutationLoading, data: mutationData }] = useMutation(EDITPOST);
+  const { loading, error, data, refetch } = useQuery(GETPOST, {
+    variables: {
+      slug
+    },
     fetchPolicy: "cache-and-network"
   });
-  const [createPost, { data: mutationData, loading: mutationLoading }] = useMutation(CREATEPOST);
-
 
   if (loading || mutationLoading) return <LoadingComponent />
-  if (error) return `Error! ${error.message}`;
+  if (error) return "Error! Cannot get post";
 
+  const postCategories = data.findOneBySlug.categories;
+
+  const selectedCategoris = () => {
+    return postCategories.map(category => category.title);
+  }
 
   const onSubmit = async (formData) => {
-    console.log(formData);
     try {
-      await createPost({
+      await editPost({
         variables: {
           input: {
             title: formData.title,
@@ -49,13 +62,13 @@ export const CreatePost = () => {
           }
         }
       })
+
+      refetch();
     } catch (error) {
       if (error.graphQLErrors.length > 0)
         setError(error.graphQLErrors[0].extensions.exception.response.message);
     }
   }
-
-  const categories = data.getAllCategories;
 
   return (
     <section>
@@ -65,7 +78,7 @@ export const CreatePost = () => {
             <Row className="justify-content-lg-center">
               <Col lg={6} sm={12}>
                 <Alert variant="success">
-                  Post succesfully created
+                  Post succesfully updated
                 </Alert>
               </Col>
             </Row>
@@ -74,16 +87,16 @@ export const CreatePost = () => {
         <Row className="justify-content-lg-center">
           <Col lg={12} sm={12}>
             <div className="well">
-              <h2>Create Post</h2>
+              <h2>Edit Post</h2>
               <Form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                 <Form.Group>
                   <Form.Label>Title</Form.Label>
-                  <Form.Control className="mb-2" type="text" placeholder="title" name="title" ref={register({
+                  <Form.Control defaultValue={data.findOneBySlug.title} className="mb-2" type="text" placeholder="title" name="title" ref={register({
                     required: "Field title is required", minLength: {
                       value: 5,
                       message: "Min length is 5"
                     }
-                  })} />
+                  })} disabled />
                   <ErrorMessage as={<Alert variant="danger" className="pre-wrap" />} errors={errors} name="title" />
                 </Form.Group>
 
@@ -92,9 +105,9 @@ export const CreatePost = () => {
                   <Form.Control className="mb-2" ref={register({
                     required: "Select at least 1 category"
                   })}
-                    name="categories" as="select" multiple>
+                    name="categories" as="select" multiple defaultValue={selectedCategoris()}>
 
-                    {categories.map((category) =>
+                    {data.findOneBySlug.allCategories.map((category) =>
                       <option key={category.title} value={category.title}>
                         {category.title}
                       </option>
@@ -112,7 +125,7 @@ export const CreatePost = () => {
                       language="en"
                     />
                   }
-                    defaultValue={value}
+                    defaultValue={BraftEditor.createEditorState(data.findOneBySlug.content)}
                     control={control}
                     name="content"
                     rules={{
@@ -123,14 +136,13 @@ export const CreatePost = () => {
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
-                  Create Post
+                  Edit Post
                 </Button>
               </Form>
             </div>
           </Col>
         </Row>
       </Container>
-    </section >
+    </section>
   )
 }
-

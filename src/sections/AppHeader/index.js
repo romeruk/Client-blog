@@ -49,6 +49,7 @@ export const AppHeader = () => {
                   <li>
                     <NavDropdown title="User actions" id="basic-nav-dropdown">
                       <Link className="dropdown-item" to="/user/edit">Edit me</Link>
+                      <Link className="dropdown-item" to="/user/posts">My Posts</Link>
                       <Link className="dropdown-item" to="/user/post/create">Create Post</Link>
                     </NavDropdown>
                   </li>

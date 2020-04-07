@@ -19,7 +19,9 @@ import {
   ForgottenPassword,
   ResetPasswordByToken,
   VerifyUser,
-  CreatePost
+  CreatePost,
+  MyPosts,
+  EditMyPost
 } from './sections';
 import { AdminRoute, PrivateRoute } from './lib';
 import { EditCategory } from './sections/Admin/EditCategory';
@@ -54,6 +56,12 @@ function App() {
             </PrivateRoute>
             <PrivateRoute exact path="/user/post/create">
               <CreatePost />
+            </PrivateRoute>
+            <PrivateRoute exact path="/user/post/:slug/edit">
+              <EditMyPost />
+            </PrivateRoute>
+            <PrivateRoute exact path="/user/posts">
+              <MyPosts />
             </PrivateRoute>
             <AdminRoute exact path="/users">
               <UsersList />

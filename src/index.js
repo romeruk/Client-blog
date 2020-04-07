@@ -6,6 +6,7 @@ import { createBrowserHistory } from "history";
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.min.css';
+import 'braft-editor/dist/index.css'
 import './style.css';
 import App from './App';
 import { client } from "./apollo/apolloClient";
