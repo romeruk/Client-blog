@@ -40,6 +40,7 @@ export const AppHeader = () => {
                 <NavDropdown title="Admin actions" id="basic-nav-dropdown">
                   <Link className="dropdown-item" to="/users">Users</Link>
                   <Link className="dropdown-item" to="/categories">Categories</Link>
+                  <Link className="dropdown-item" to="/posts">Posts</Link>
                 </NavDropdown>
               )}
             </Nav>

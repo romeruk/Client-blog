@@ -15,3 +15,4 @@ export * from './Admin/CreateUserByAdmin';
 export * from './Admin/UsersList';
 export * from './Admin/Categories';
 export * from './Admin/CreateCategory';
+export * from './Admin/Posts';

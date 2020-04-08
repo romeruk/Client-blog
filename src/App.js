@@ -21,7 +21,8 @@ import {
   VerifyUser,
   CreatePost,
   MyPosts,
-  EditMyPost
+  EditMyPost,
+  Posts
 } from './sections';
 import { AdminRoute, PrivateRoute } from './lib';
 import { EditCategory } from './sections/Admin/EditCategory';
@@ -77,6 +78,9 @@ function App() {
             </AdminRoute>
             <AdminRoute exact path="/categories/:slug/edit">
               <EditCategory />
+            </AdminRoute>
+            <AdminRoute exact path="/posts">
+              <Posts />
             </AdminRoute>
             <Route path="*">
               <NotFound />

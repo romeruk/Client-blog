@@ -38,6 +38,10 @@ body {
   margin-top: 20px;
 }
 
+.modal-100w {
+  max-width: 100%;
+}
+
 #overlay {
   position: fixed;
   display: flex;
