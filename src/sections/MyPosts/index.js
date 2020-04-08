@@ -14,7 +14,8 @@ const GETPOSTS = gql`
       total,
       posts {
         title,
-        slug
+        slug,
+        isActive
       }
     }
   }
@@ -105,6 +106,7 @@ export const MyPosts = () => {
               <thead>
                 <tr>
                   <th>TITLE</th>
+                  <th>ACTIVE</th>
                   <th>ACTIONS</th>
                 </tr>
               </thead>
