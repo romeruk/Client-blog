@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const GETBYSLUG = gql`
-  query findOneBySlug($slug: String!) {
-    findOneBySlug(slug: $slug) {
+  query findOneBySlugCategory($slug: String!) {
+    findOneBySlugCategory(slug: $slug) {
         title
         deletedAt
       }

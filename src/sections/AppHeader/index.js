@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { LoadingComponent } from '../../lib';
@@ -28,7 +28,7 @@ export const AppHeader = () => {
 
   return (
     <>
-      <Navbar className="p-3 px-md-4 mb-3 bg-white border-bottom" bg="light" expand="lg">
+      <Navbar className="p-3 px-md-4 mb-4 box-shadow-custom" bg="dark" variant="dark" expand="lg">
         <Container>
 
           <Navbar.Brand href="/">Blog</Navbar.Brand>
@@ -38,31 +38,40 @@ export const AppHeader = () => {
               {user && (user.role === "ADMIN" || user.role === "SUPERADMIN") && (
 
                 <NavDropdown title="Admin actions" id="basic-nav-dropdown">
-                  <Link className="dropdown-item" to="/users">Users</Link>
-                  <Link className="dropdown-item" to="/categories">Categories</Link>
-                  <Link className="dropdown-item" to="/posts">Posts</Link>
+                  <NavLink className="dropdown-item" to="/users">Users</NavLink>
+                  <NavLink className="dropdown-item" to="/categories">Categories</NavLink>
+                  <NavLink className="dropdown-item" to="/posts">Posts</NavLink>
                 </NavDropdown>
               )}
             </Nav>
             {user ? (
               <>
-                <Nav as="ul" className="mr-lg-4 mb-4 mb-lg-0 d-lg-flex align-items-lg-center">
-                  <li>
-                    <NavDropdown title="User actions" id="basic-nav-dropdown">
-                      <Link className="dropdown-item" to="/user/edit">Edit me</Link>
-                      <Link className="dropdown-item" to="/user/posts">My Posts</Link>
-                      <Link className="dropdown-item" to="/user/post/create">Create Post</Link>
-                    </NavDropdown>
-                  </li>
-                  <li>Hi {user.firstName} {user.lastName}</li>
+                <Nav
+                  activeKey="/home"
+                  onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
+                >
+                  <Nav.Item>
+                    <NavLink className="nav-link text-uppercase" to="/user/edit">Edit me</NavLink>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <NavLink className="nav-link text-uppercase" to="/user/posts">My Posts</NavLink>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <NavLink className="nav-link text-uppercase" to="/user/post/create">Create Post</NavLink>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link className="text-white" eventKey="disabled" disabled>
+                      Hi {user.firstName} {user.lastName}
+                    </Nav.Link>
+                  </Nav.Item>
                 </Nav>
                 <Button variant="danger" onClick={logOutAction}>Log Out</Button>
               </>
             ) :
               <Nav>
 
-                <Link to="/signin" className="btn btn-outline-primary mr-lg-3">Log In</Link>
-                <Link to="/signup" className="btn btn-outline-primary">Register</Link>
+                <NavLink to="/signin" className="btn btn-outline-info mr-lg-3">Log In</NavLink>
+                <NavLink to="/signup" className="btn btn-outline-info">Register</NavLink>
               </Nav>
             }
 

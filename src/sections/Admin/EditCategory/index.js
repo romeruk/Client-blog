@@ -26,7 +26,7 @@ export const EditCategory = () => {
   if (loading) return <LoadingComponent />
   if (error) return `Error! ${error.message}`;
 
-  const category = data.findOneBySlug;
+  const category = data.findOneBySlugCategory;
 
   const onSubmit = async formData => {
     try {
