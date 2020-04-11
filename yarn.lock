@@ -2494,6 +2494,11 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
+bootstrap-icons@^1.0.0-alpha3:
+  version "1.0.0-alpha3"
+  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.0.0-alpha3.tgz#413171e88b79315e712e6ab65601f64b1735d566"
+  integrity sha512-UO++43jb/qlWVsC31WkHOjFsTihJkSz0wngnUS+P1ImcCMTqDJqDHySld+hpkzxi+q6fL8iom7nfT3ApAxZ6cQ==
+
 bootstrap@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.4.1.tgz#8582960eea0c5cd2bede84d8b0baf3789c3e8b01"
@@ -3077,7 +3082,7 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.11.0, commander@^2.20.0:
+commander@^2.11.0, commander@^2.20.0, commander@^2.9.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -3467,6 +3472,11 @@ cssesc@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
   integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
+
+cssfilter@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/cssfilter/-/cssfilter-0.0.10.tgz#c6d2672632a2e5c83e013e6864a42ce8defd20ae"
+  integrity sha1-xtJnJjKi5cg+AT5oZKQs6N79IK4=
 
 cssnano-preset-default@^4.0.7:
   version "4.0.7"
@@ -8747,6 +8757,15 @@ query-string@^4.1.0:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
+query-string@^5.0.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-5.1.1.tgz#a78c012b71c17e05f2e3fa2319dd330682efb3cb"
+  integrity sha512-gjWOsm2SoGlgLEdAGt7a6slVOk9mGiXmPFMqrEhLQ68rhQuBnpfs3+EmlvqKyxnCo9/PPlF+9MtY02S1aFg+Jw==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    object-assign "^4.1.0"
+    strict-uri-encode "^1.0.0"
+
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -8810,6 +8829,14 @@ react-app-polyfill@^1.0.6:
     raf "^3.4.1"
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
+
+react-bootstrap-icons@^1.0.1-alpha3:
+  version "1.0.1-alpha3"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-icons/-/react-bootstrap-icons-1.0.1-alpha3.tgz#796e8c6f38bcd01b721ff98f04452b939630c093"
+  integrity sha512-A8ZEUs4t/U1buv2mnEjo+xmo1jPodx3FotT+vLZmcr7YT+qtNNHaWpiEBWrFDuOEFuu0jUi/4tyhkfYM1LhQ+w==
+  dependencies:
+    bootstrap-icons "^1.0.0-alpha3"
+    prop-types "^15.7.2"
 
 react-bootstrap@^1.0.0:
   version "1.0.0"
@@ -9011,6 +9038,13 @@ react-transition-group@^4, react-transition-group@^4.0.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-truncate-html@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/react-truncate-html/-/react-truncate-html-0.1.7.tgz#85a00cab4b31fc766623558ad0433ceefd5122a9"
+  integrity sha512-f6SXsG/chYk9Hi1HLiiZgYZ81RS68a7MdO9NcWTV7zufrLEfyX+C1JrgM2SN4z9zlgHVMJh+POGvb1SDOMRJyA==
+  dependencies:
+    xss "^0.3.4"
 
 react@^16.13.1:
   version "16.13.1"
@@ -9584,6 +9618,13 @@ serialize-javascript@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-2.1.2.tgz#ecec53b0e0317bdc95ef76ab7074b7384785fa61"
   integrity sha512-rs9OggEUF0V4jUSecXazOYsLfu7OGK2qIn3c7IPBiffz32XniEp/TX9Xmc9LQfK2nQ2QKHvZ2oygKUGU0lG4jQ==
+
+serialize-query-params@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/serialize-query-params/-/serialize-query-params-0.3.0.tgz#c815306729463f2a37adb171faf352992fcc0ce8"
+  integrity sha512-gtarsAa5B7L+v2mxbm0zTq8WjqwjgYHZmLsyvxGnlSfW2bWkokV0QKzRxLCGHF2aDqbQYCCNaj1/NP6DqbcEKQ==
+  dependencies:
+    query-string "^5.0.0"
 
 serve-index@^1.9.1:
   version "1.9.1"
@@ -10641,6 +10682,13 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
+use-query-params@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-0.6.0.tgz#66e2f25b0ed3f18ec38a493779513335b8b2bf54"
+  integrity sha512-AEZm0+TTYuV3/l/IC+Iyqkvol1muXWJd2hlgY2erFESvtZNIpU4BrsTo6jnOBFd/t6rTOQuFjKSmW/+TAy8mzQ==
+  dependencies:
+    serialize-query-params "^0.3.0"
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
@@ -11191,6 +11239,14 @@ xregexp@^4.3.0:
   integrity sha512-7jXDIFXh5yJ/orPn4SXjuVrWWoi4Cr8jfV1eHv9CixKSbU+jY4mxfrBwAuDvupPNKpMUY+FeIqsVw/JLT9+B8g==
   dependencies:
     "@babel/runtime-corejs3" "^7.8.3"
+
+xss@^0.3.4:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/xss/-/xss-0.3.8.tgz#d0cbe23bde490bc98c139f08de3899165a68af0e"
+  integrity sha512-OCD6A7FaqZt7tUAnIpAlpcMlZpWUrfV+nBYrBfrgtcYf2eEv2qnCBqpkmxWR479piPSyTsFAKO/+LckiWpCXsQ==
+  dependencies:
+    commander "^2.9.0"
+    cssfilter "0.0.10"
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { Router } from "react-router";
+import { Router, Route } from "react-router";
 import { createBrowserHistory } from "history";
 import { toast } from 'react-toastify';
+import { QueryParamProvider } from 'use-query-params';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import 'braft-editor/dist/index.css'
@@ -21,11 +22,13 @@ toast.configure({
 
 ReactDOM.render(
   <Router history={history}>
-    <ApolloProvider client={client}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </ApolloProvider>
+    <QueryParamProvider ReactRouterRoute={Route}>
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </ApolloProvider>
+    </QueryParamProvider>
   </Router>,
   document.getElementById('root')
 );
