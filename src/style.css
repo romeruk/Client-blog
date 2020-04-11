@@ -63,3 +63,35 @@ body {
   z-index: 2;
   cursor: pointer;
 }
+
+#sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -100px;
+  overflow-x: hidden;
+  padding: 10px;
+  background: white;
+
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+#sidebar.active {
+  width: 300px;
+  left: 0;
+}
+
+
+.post {
+  padding: 25px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11);
+}
+
+.post h1 {
+  font-size: 2rem;
+}
