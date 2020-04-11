@@ -9,8 +9,8 @@ import { LoadingComponent, BootstrapPagination } from '../../../lib';
 import { TableBodyTr, PreviewModal } from './components';
 
 const GETPOSTS = gql`
-  query getAllPosts($limit: Float!, $page: Float!) {
-    getAllPosts(limit: $limit, page: $page) {
+  query getAllPosts($limit: Float!, $page: Float!, $onlyActive: Boolean) {
+    getAllPosts(limit: $limit, page: $page, onlyActive: $onlyActive) {
       total
       posts {
         title
@@ -40,7 +40,8 @@ export const Posts = () => {
   const { loading, error, data, refetch } = useQuery(GETPOSTS, {
     variables: {
       limit: PAGE_LIMIT,
-      page: page
+      page: page,
+      onlyActive: false
     },
     fetchPolicy: "cache-and-network"
   });
