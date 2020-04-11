@@ -1,18 +1,18 @@
 import React from 'react'
 import { Table, Row, Col, Card, Container } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
+import { useQueryState } from 'react-router-use-location-state';
 import { LoadingComponent, BootstrapPagination } from '../../../lib';
-import { useUrlQuery } from '../../../hooks/';
 import { TableBodyTr } from './components'
 import { GETUSERS, REMOVEUSER, RECOVERUSER } from './graphql';
+
 const PAGE_LIMIT = 10;
 
 export const UsersList = () => {
-  let history = useHistory();
-  let query = useUrlQuery();
-  const page = parseInt(query.get("page"), 10) || 1;
+  const [page, setPage] = useQueryState('page', 1);
+
   const { loading, error, data, refetch } = useQuery(GETUSERS, {
     variables: {
       limit: PAGE_LIMIT,
@@ -34,9 +34,9 @@ export const UsersList = () => {
   const headings = users.length > 0 ? Object.keys(users[0]) : [];
 
   const pageChange = (page) => {
-    let currentUrlParams = new URLSearchParams(window.location.search);
-    currentUrlParams.set('page', page);
-    history.push(window.location.pathname + "?" + currentUrlParams.toString());
+    setPage(page, {
+      method: "push"
+    })
   }
 
 

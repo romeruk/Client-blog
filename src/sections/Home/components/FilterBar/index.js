@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { Nav } from 'react-bootstrap';
 import gql from 'graphql-tag';
 import { X } from 'react-bootstrap-icons';
-import { LoadingComponent } from '../../../../lib';
 
 const GETALLCATEGORIES = gql`
   query getAllCategories {

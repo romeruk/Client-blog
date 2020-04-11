@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Table } from 'react-bootstrap'
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { useHistory } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { useUrlQuery } from '../../../hooks/';
+import { useQueryState } from 'react-router-use-location-state'
 import { LoadingComponent, BootstrapPagination } from '../../../lib';
 import { TableBodyTr, PreviewModal } from './components';
 
@@ -31,12 +30,11 @@ const REMOVEPOST = gql`
 const PAGE_LIMIT = 10;
 
 export const Posts = () => {
+  const [page, setPage] = useQueryState('page', 1);
+
   const [showModal, setShowModal] = useState(false);
   const [currPost, setCurrPost] = useState({});
   const [removePostMutation, { loading: mutationLoading }] = useMutation(REMOVEPOST);
-  let history = useHistory();
-  let query = useUrlQuery();
-  const page = parseInt(query.get("page"), 10) || 1;
   const { loading, error, data, refetch } = useQuery(GETPOSTS, {
     variables: {
       limit: PAGE_LIMIT,
@@ -53,9 +51,9 @@ export const Posts = () => {
   const posts = data.getAllPosts.posts;
 
   const pageChange = (page) => {
-    let currentUrlParams = new URLSearchParams(window.location.search);
-    currentUrlParams.set('page', page);
-    history.push(window.location.pathname + "?" + currentUrlParams.toString());
+    setPage(page, {
+      method: "push"
+    })
   }
 
   const handleCloseOpenModal = () => {

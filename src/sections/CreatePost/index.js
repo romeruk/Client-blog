@@ -25,7 +25,7 @@ const CREATEPOST = gql`
 
 
 export const CreatePost = () => {
-  const [value, setValue] = useState(BraftEditor.createEditorState('<p>Hello <b>World!</b></p>'));
+  const [value] = useState(BraftEditor.createEditorState('<p>Hello <b>World!</b></p>'));
   const { register, handleSubmit, errors, setError, control } = useForm();
   const { loading, error, data } = useQuery(GETALLCATEGORIES, {
     fetchPolicy: "cache-and-network"
@@ -38,7 +38,6 @@ export const CreatePost = () => {
 
 
   const onSubmit = async (formData) => {
-    console.log(formData);
     try {
       await createPost({
         variables: {

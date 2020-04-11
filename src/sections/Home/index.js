@@ -4,11 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { Filter } from 'react-bootstrap-icons';
 import gql from 'graphql-tag';
 import Truncate from 'react-truncate-html';
-import {
-  useQueryParams,
-  NumberParam,
-  ArrayParam,
-} from 'use-query-params';
+import { useQueryState } from 'react-router-use-location-state'
 import { LoadingComponent, BootstrapPagination } from '../../lib';
 import { FilterBar } from './components';
 import imageReplacer from '../../utils/imageReplacer';
@@ -32,13 +28,8 @@ const PAGE_LIMIT = 10;
 
 
 export const Home = () => {
-  const [query, setQuery] = useQueryParams({
-    page: NumberParam,
-    categories: ArrayParam,
-  });
-
-  const { page = 1, categories = [] } = query;
-
+  const [page, setPage] = useQueryState('page', 1);
+  const [categories, setCategories] = useQueryState('categories', []);
 
   const { loading, error, data } = useQuery(GETPOSTS, {
     variables: {
@@ -65,10 +56,7 @@ export const Home = () => {
   }
 
   const pageChange = (page) => {
-    setQuery({
-      page: page,
-      categories: [...categories]
-    }, 'push');
+    setPage(page);
   };
 
   const handleCategories = (category) => {
@@ -81,10 +69,8 @@ export const Home = () => {
       categories.push(category);
     }
 
-    setQuery({
-      page: 1,
-      categories: categories
-    }, 'push');
+    setPage(1);
+    setCategories(categories);
   }
 
   return (

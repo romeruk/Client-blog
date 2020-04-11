@@ -1,10 +1,9 @@
 import React from 'react'
 import gql from "graphql-tag";
 import { Row, Col, Table, Card, Container } from 'react-bootstrap';
-
+import { useQueryState } from 'react-router-use-location-state';
 import { useQuery } from '@apollo/react-hooks';
-import { useHistory, Link } from 'react-router-dom';
-import { useUrlQuery } from '../../../hooks/';
+import { Link } from 'react-router-dom';
 import { LoadingComponent, BootstrapPagination } from '../../../lib';
 import { TableBodyTr } from "./components";
 
@@ -23,9 +22,8 @@ export const GETCATEGORIES = gql`
 const PAGE_LIMIT = 10;
 
 export const Categories = () => {
-  let history = useHistory();
-  let query = useUrlQuery();
-  const page = parseInt(query.get("page"), 10) || 1;
+  const [page, setPage] = useQueryState('page', 1);
+
   const { loading, error, data } = useQuery(GETCATEGORIES, {
     variables: {
       limit: PAGE_LIMIT,
@@ -41,9 +39,9 @@ export const Categories = () => {
   const categories = data.findAllCategories.categories;
 
   const pageChange = (page) => {
-    let currentUrlParams = new URLSearchParams(window.location.search);
-    currentUrlParams.set('page', page);
-    history.push(window.location.pathname + "?" + currentUrlParams.toString());
+    setPage(page, {
+      method: "push"
+    })
   }
 
 

@@ -2,9 +2,9 @@ import React from 'react'
 import { Container, Row, Col, Card, Table } from 'react-bootstrap'
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { useUrlQuery } from '../../hooks/';
+import { useQueryState } from 'react-router-use-location-state';
 import { LoadingComponent, BootstrapPagination } from '../../lib';
 import { TableBodyTr } from './components';
 
@@ -30,9 +30,8 @@ const REMOVEPOST = gql`
 const PAGE_LIMIT = 10;
 
 export const MyPosts = () => {
-  let history = useHistory();
-  let query = useUrlQuery();
-  const page = parseInt(query.get("page"), 10) || 1;
+  const [page, setPage] = useQueryState('page', 1);
+
   const { loading, error, data, refetch } = useQuery(GETPOSTS, {
     variables: {
       limit: PAGE_LIMIT,
@@ -81,9 +80,9 @@ export const MyPosts = () => {
   }
 
   const pageChange = (page) => {
-    let currentUrlParams = new URLSearchParams(window.location.search);
-    currentUrlParams.set('page', page);
-    history.push(window.location.pathname + "?" + currentUrlParams.toString());
+    setPage(page, {
+      method: "push"
+    })
   }
 
 
