@@ -5,6 +5,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import gql from "graphql-tag";
 import BraftEditor from 'braft-editor'
 import { LoadingComponent } from "../../lib";
+import { excludeControls } from '../../utils/editorOptions';
 
 const GETALLCATEGORIES = gql`
   query getAllCategories {
@@ -22,7 +23,6 @@ const CREATEPOST = gql`
   }
 
 `
-
 
 export const CreatePost = () => {
   const [value] = useState(BraftEditor.createEditorState('<p>Hello <b>World!</b></p>'));
@@ -108,6 +108,7 @@ export const CreatePost = () => {
                   <Form.Label>Content</Form.Label>
                   <Controller as={
                     <BraftEditor
+                      excludeControls={excludeControls}
                       language="en"
                     />
                   }

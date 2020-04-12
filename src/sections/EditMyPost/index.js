@@ -7,6 +7,7 @@ import { useForm, ErrorMessage, Controller } from "react-hook-form";
 import BraftEditor from 'braft-editor'
 
 import { LoadingComponent } from '../../lib';
+import { excludeControls } from '../../utils/editorOptions';
 
 const GETPOST = gql`
   query findOneBySlug($slug: String!) {
@@ -122,6 +123,7 @@ export const EditMyPost = () => {
                   <Form.Label>Content</Form.Label>
                   <Controller as={
                     <BraftEditor
+                      excludeControls={excludeControls}
                       language="en"
                     />
                   }
