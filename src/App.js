@@ -22,7 +22,8 @@ import {
   CreatePost,
   MyPosts,
   EditMyPost,
-  Posts
+  Posts,
+  ReadPost
 } from './sections';
 import { AdminRoute, PrivateRoute } from './lib';
 import { EditCategory } from './sections/Admin/EditCategory';
@@ -51,6 +52,9 @@ function App() {
             </Route>
             <Route exact path="/verify/:token">
               <VerifyUser />
+            </Route>
+            <Route exact path="/read/:slug">
+              <ReadPost />
             </Route>
             <PrivateRoute exact path="/user/edit">
               <EditMe />

@@ -8,6 +8,7 @@ import { useQueryState } from 'react-router-use-location-state'
 import { LoadingComponent, BootstrapPagination } from '../../lib';
 import { FilterBar } from './components';
 import imageReplacer from '../../utils/imageReplacer';
+import { Link } from 'react-router-dom';
 
 const GETPOSTS = gql`
   query getAllPosts($limit: Float!, $page: Float!, $categories: [String!]) {
@@ -15,6 +16,7 @@ const GETPOSTS = gql`
       total
       posts {
         title
+        slug
         content
         images {
           url
@@ -109,12 +111,15 @@ export const Home = () => {
                     </div>
                     <h1 className="font-weight-bold">{post.title}</h1>
                     <Truncate
+                      className="readpost text-justify"
                       lines={5}
                       breakWord={true}
                       dangerouslySetInnerHTML={{
                         __html: imageReplacer(post.content)
                       }}
                     />
+
+                    <Link to={`/read/${post.slug}`}> Read more</Link>
                   </div>
 
                 ))

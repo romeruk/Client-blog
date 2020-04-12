@@ -11,6 +11,7 @@ export * from './VerifyUser';
 export * from './CreatePost/';
 export * from './MyPosts';
 export * from './EditMyPost';
+export * from './ReadPost/';
 export * from './Admin/CreateUserByAdmin';
 export * from './Admin/UsersList';
 export * from './Admin/Categories';
