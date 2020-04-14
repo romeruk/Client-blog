@@ -1,8 +1,7 @@
 import React from 'react'
-import { ButtonGroup } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { ButtonGroup, Button } from "react-bootstrap";
 
-export const TableBodyTr = ({ category }) => {
+export const TableBodyTr = ({ category, handleRemoveCategory }) => {
   const { title, slug } = category;
 
 
@@ -12,7 +11,7 @@ export const TableBodyTr = ({ category }) => {
       <td>{slug}</td>
       <td>
         <ButtonGroup aria-label="Basic example">
-          <Link to={`/categories/${slug}/edit`} className="btn btn-success">Edit</Link>
+          <Button variant="danger" onClick={() => handleRemoveCategory(title)}>Remove</Button>
         </ButtonGroup>
       </td>
     </tr>

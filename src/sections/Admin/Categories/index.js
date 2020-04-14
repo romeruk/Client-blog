@@ -2,8 +2,9 @@ import React from 'react'
 import gql from "graphql-tag";
 import { Row, Col, Table, Card, Container } from 'react-bootstrap';
 import { useQueryState } from 'react-router-use-location-state';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
+import { toast } from "react-toastify";
 import { LoadingComponent, BootstrapPagination } from '../../../lib';
 import { TableBodyTr } from "./components";
 
@@ -19,12 +20,19 @@ export const GETCATEGORIES = gql`
   }
 `;
 
+export const REMOVECATEGORY = gql`
+  mutation removeCategory($title: String!) {
+    removeCategory(title: $title)
+  }
+`;
+
 const PAGE_LIMIT = 10;
 
 export const Categories = () => {
   const [page, setPage] = useQueryState('page', 1);
+  const [removeCategory, { loading: mutationLoading }] = useMutation(REMOVECATEGORY);
 
-  const { loading, error, data } = useQuery(GETCATEGORIES, {
+  const { loading, error, data, refetch } = useQuery(GETCATEGORIES, {
     variables: {
       limit: PAGE_LIMIT,
       page: page
@@ -32,7 +40,7 @@ export const Categories = () => {
     fetchPolicy: "cache-and-network"
   });
 
-  if (loading) return <LoadingComponent />
+  if (loading || mutationLoading) return <LoadingComponent />
   if (error) return `Error! ${error.message}`;
 
   const total = data.findAllCategories.total;
@@ -45,9 +53,28 @@ export const Categories = () => {
   }
 
 
+  const handleRemoveCategory = async (title) => {
+    try {
+      await removeCategory({
+        variables: {
+          title
+        }
+      })
+      toast("Category has been removed", {
+        type: "success"
+      });
+      refetch();
+
+    } catch (error) {
+      toast(`Error! ${error.message}`, {
+        type: "error"
+      });
+    }
+  }
+
   const renderTableData = () => {
     return categories.map((category) => {
-      return <TableBodyTr key={category.slug} category={category} />
+      return <TableBodyTr key={category.slug} category={category} handleRemoveCategory={handleRemoveCategory} />
     })
   }
 
